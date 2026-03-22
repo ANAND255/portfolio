@@ -6,6 +6,7 @@ const LINKS = [
   {to:'/',label:'Home'},{to:'/about',label:'About'},
   {to:'/skills',label:'Skills'},{to:'/projects',label:'Projects'},
   {to:'/education',label:'Education'},{to:'/contact',label:'Contact'},
+  {to:'/certifications',label:'Certifications'},
 ]
 const DlSVG=()=>(<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>)
 const CVLink=()=>(<a href="https://drive.google.com/file/d/1E1VdxWylVEJQzOURX9Tx4_jP4na8wVbI/view?usp=sharing" target="_blank" rel="noreferrer" className="nav-cv"><DlSVG /> Resume</a>)

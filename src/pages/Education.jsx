@@ -1,30 +1,37 @@
 import { useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import '../styles/Education.css'
 
 function Reveal({ children, className = '', delay = 0, dir = '' }) {
   const ref = useRef(null)
   useEffect(() => {
     const el = ref.current; if (!el) return
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.classList.add('visible'); obs.disconnect() } }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' })
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { el.classList.add('visible'); obs.disconnect() } },
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+    )
     obs.observe(el); return () => obs.disconnect()
   }, [])
   const cls = dir === 'left' ? 'reveal-left' : dir === 'right' ? 'reveal-right' : dir === 'scale' ? 'reveal-scale' : 'reveal'
-  return <div ref={ref} className={`${cls} ${className}`} style={delay ? { transitionDelay: `${delay}ms` } : {}}>{children}</div>
+  return (
+    <div ref={ref} className={`${cls} ${className}`} style={delay ? { transitionDelay: `${delay}ms` } : {}}>
+      {children}
+    </div>
+  )
 }
 
-const Award=()=>(<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="8" r="6"/><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/></svg>)
+const Ar = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+  </svg>
+)
 
 const EDU = [
   { num:'01', deg:'Bachelor of Technology — Computer Science & Engineering', sch:'Lovely Professional University', loc:'Punjab, India', period:'Aug 2023 – Present', score:'7.0', scoreLabel:'CGPA', status:'current' },
   { num:'02', deg:'Intermediate (Class XII)', sch:'Veda Vyasa Vidyalayam', loc:'Kozhikode, Kerala', period:'Jun 2020 – Mar 2022', score:'84%', scoreLabel:'Score', status:'done' },
   { num:'03', deg:'Matriculation (Class X)', sch:'Veda Vyasa Vidyalayam', loc:'Kozhikode, Kerala', period:'Jun 2019 – Mar 2020', score:'81%', scoreLabel:'Score', status:'done' },
 ]
-const CERTS_BIG = { n:'01', title:'288 Hours of Intensive Learning', issuer:'iamneo Learning Platform', date:'May 2025', desc:'Completed 4 comprehensive courses over 288 hours — the most consistent and disciplined learning commitment of the academic journey.' }
-const CERTS_SMALL = [
-  { title:'Data Structures & Algorithms', issuer:'NeoColab', date:'Dec 2024' },
-  { title:'Bits & Bytes of Networking', issuer:'Coursera (Google)', date:'May 2024' },
-  { title:'Python Industrial Training', issuer:'Code Sprint', date:'Mar 2024' },
-]
+
 const SOFT = ['Analytical Thinking','Problem Solving','Adaptability','Communication','Time Management','Collaboration','Critical Thinking','Attention to Detail']
 
 export default function Education() {
@@ -35,10 +42,11 @@ export default function Education() {
         <div className="wrap">
           <span className="tag u1">Academic Journey</span>
           <div className="lg u2" style={{marginTop:18}}>Education</div>
-          <p className="banner-sub u3">A strong academic foundation backed by 288+ hours of self-driven learning and multiple industry certifications.</p>
+          <p className="banner-sub u3">A strong academic foundation backed by continuous self-driven learning and industry-verified credentials.</p>
         </div>
       </div>
 
+      {/* Formal Education */}
       <section className="sec">
         <div className="wrap">
           <Reveal><span className="tag">Academics</span></Reveal>
@@ -67,34 +75,38 @@ export default function Education() {
 
       <div className="divider" />
 
+      {/* Certifications teaser — links to /certifications */}
       <section className="sec sec-alt">
         <div className="wrap">
-          <Reveal><span className="tag">Credentials</span></Reveal>
-          <Reveal delay={80}><h2 className="md" style={{marginTop:14}}>Certificates</h2></Reveal>
-          <Reveal delay={120}>
-            <div className="cert-bento">
-              <div className="cert-big">
-                <div>
-                  <div className="cert-n">{CERTS_BIG.n} — Featured</div>
-                  <h3>{CERTS_BIG.title}</h3>
-                  <p style={{fontSize:'.88rem',color:'rgba(8,11,24,.55)',lineHeight:1.75,marginTop:8}}>{CERTS_BIG.desc}</p>
-                </div>
-                <div>
-                  <div className="cert-issuer">{CERTS_BIG.issuer}</div>
-                  <div className="cert-date">{CERTS_BIG.date}</div>
+          <Reveal>
+            <div className="edu-cert-teaser">
+              <div className="ect-left">
+                <span className="tag">Credentials</span>
+                <h2 className="md" style={{marginTop:14,marginBottom:14}}>Certifications</h2>
+                <p style={{color:'var(--g5)',fontSize:'.95rem',lineHeight:1.8,maxWidth:480}}>
+                  Verified certificates from Google, NeoColab, Coursera, Code Sprint and more —
+                  spanning algorithms, networking, Python, ML and data visualization.
+                </p>
+                <div className="ect-pills">
+                  {['DSA','Networking','Python','Machine Learning','Power BI','SQL'].map(t => (
+                    <span key={t} className="ect-pill">{t}</span>
+                  ))}
                 </div>
               </div>
-              <div className="cert-small">
-                {CERTS_SMALL.map((c, i) => (
-                  <div className="cert-card" key={c.title} style={{transitionDelay:`${i*80}ms`}}>
-                    <div>
-                      <div className="cert-icon"><Award /></div>
-                      <h4>{c.title}</h4>
-                      <div className="cert-issuer">{c.issuer}</div>
-                    </div>
-                    <div className="cert-date">{c.date}</div>
+              <div className="ect-right">
+                <div className="ect-stats">
+                  <div className="ect-stat">
+                    <div className="ect-stat-val">7+</div>
+                    <div className="ect-stat-lbl">Certifications</div>
                   </div>
-                ))}
+                  <div className="ect-stat">
+                    <div className="ect-stat-val">288</div>
+                    <div className="ect-stat-lbl">Hrs Logged</div>
+                  </div>
+                </div>
+                <Link to="/certifications" className="btn btn-w ect-btn">
+                  View All Certificates <Ar />
+                </Link>
               </div>
             </div>
           </Reveal>
@@ -103,6 +115,7 @@ export default function Education() {
 
       <div className="divider" />
 
+      {/* Soft Skills */}
       <section className="sec">
         <div className="wrap">
           <Reveal><span className="tag">Soft Skills</span></Reveal>

@@ -116,7 +116,7 @@ export default function Home() {
             <div style={{gridColumn:'span 5',display:'grid',gap:12}}>
               <Reveal className="card" delay={180}>
                 <div className="card-sub">LPU CGPA</div>
-                <div className="card-big-num">7.0</div>
+                <div className="card-big-num">7.3</div>
               </Reveal>
             </div>
             <Reveal className="card card-c8" delay={100}>

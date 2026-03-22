@@ -7,6 +7,7 @@ import About from './pages/About'
 import Skills from './pages/Skills'
 import Projects from './pages/Projects'
 import Education from './pages/Education'
+import Certifications from './pages/Certifications'
 import Contact from './pages/Contact'
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/skills" element={<Skills />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/education" element={<Education />} />
+        <Route path="/certifications" element={<Certifications />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
       <Footer />
