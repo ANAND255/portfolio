@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import '../styles/About.css'
+import image from "../assets/profileanand.png"
 
 function Reveal({ children, className = '', delay = 0, dir = '' }) {
   const ref = useRef(null)
@@ -40,8 +41,7 @@ export default function About() {
               <div className="a-img-col">
                 <div className="a-img-box">
                   <div className="a-img-ph">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                    <p>Add Your Photo</p>
+                    <img src={image}></img>
                   </div>
                   <div className="a-img-outline" />
                 </div>

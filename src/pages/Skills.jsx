@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import '../styles/Skills.css'
 
+/* ── SVG Logos ── */
 const LogoPython=()=>(<svg viewBox="0 0 256 255"><defs><linearGradient id="sA" x1="12%" x2="80%" y1="12%" y2="78%"><stop offset="0%" stopColor="#387EB8"/><stop offset="100%" stopColor="#366994"/></linearGradient><linearGradient id="sB" x1="19%" x2="91%" y1="21%" y2="88%"><stop offset="0%" stopColor="#FFE052"/><stop offset="100%" stopColor="#FFC331"/></linearGradient></defs><path fill="url(#sA)" d="M126.916.072c-64.832 0-60.784 28.115-60.784 28.115l.072 29.128h61.868v8.745H41.631S.145 61.355.145 126.77c0 65.417 36.21 63.097 36.21 63.097h21.61v-30.356s-1.165-36.21 35.632-36.21h61.362s34.475.557 34.475-33.319V33.97S194.67.072 126.916.072zM92.802 19.66a11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13 11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.13z"/><path fill="url(#sB)" d="M128.757 254.126c64.832 0 60.784-28.115 60.784-28.115l-.072-29.127H127.6v-8.745h86.441s41.486 4.705 41.486-60.712c0-65.416-36.21-63.096-36.21-63.096h-21.61v30.355s1.165 36.21-35.632 36.21h-61.362s-34.475-.557-34.475 33.32v56.013s-5.235 33.897 62.518 33.897zm34.114-19.586a11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.131 11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13z"/></svg>)
 const LogoPowerBI=()=>(<svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#F2C811"/><rect x="11" y="17" width="6.5" height="20" rx="2" fill="#1E1E1E"/><rect x="20.5" y="11" width="6.5" height="26" rx="2" fill="#1E1E1E"/><rect x="30" y="6" width="6.5" height="31" rx="2" fill="#1E1E1E"/></svg>)
 const LogoSQL=()=>(<svg viewBox="0 0 64 64"><ellipse cx="32" cy="14" rx="21" ry="7" fill="none" stroke="#00758F" strokeWidth="2.8"/><path d="M11 14v11c0 3.9 9.4 7 21 7s21-3.1 21-7V14" fill="none" stroke="#00758F" strokeWidth="2.8"/><path d="M11 25v11c0 3.9 9.4 7 21 7s21-3.1 21-7V25" fill="none" stroke="#00758F" strokeWidth="2.8"/><path d="M11 36v11c0 3.9 9.4 7 21 7s21-3.1 21-7V36" fill="none" stroke="#F29111" strokeWidth="2.8"/><ellipse cx="32" cy="47" rx="21" ry="7" fill="none" stroke="#F29111" strokeWidth="2.8"/></svg>)
@@ -17,110 +18,341 @@ const LogoSeaborn=()=>(<svg viewBox="0 0 60 60"><rect width="60" height="60" rx=
 const LogoVSCode=()=>(<svg viewBox="0 0 100 100"><rect width="100" height="100" rx="4" fill="#007ACC"/><path d="M22 24h9l15 40 15-40h9l-19 52h-10z" fill="white"/></svg>)
 const AwardIcon=()=>(<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="8" r="6"/><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/></svg>)
 
-const GROUPS = [
-  {Logo:LogoPython, label:'Programming Languages', skills:[{n:'Python',p:85},{n:'SQL',p:80},{n:'C++',p:65},{n:'Java',p:60}]},
-  {Logo:LogoPowerBI,label:'Data & BI Tools',       skills:[{n:'Power BI',p:82},{n:'Excel',p:78},{n:'DAX',p:70},{n:'Data Visualization',p:80}]},
-  {Logo:LogoPandas, label:'Python Libraries',       skills:[{n:'Pandas',p:85},{n:'NumPy',p:80},{n:'Scikit-learn',p:75},{n:'Matplotlib/Seaborn',p:78}]},
-  {Logo:LogoScikit, label:'Machine Learning',       skills:[{n:'Logistic Regression',p:80},{n:'Random Forest',p:75},{n:'Feature Engineering',p:72},{n:'Model Evaluation',p:78}]},
+/* ── Data ── */
+const CATEGORIES = [
+  {
+    id: 'lang', label: 'Languages', color: '#387EB8',
+    skills: [
+      { name: 'Python', Logo: LogoPython, level: 'Advanced' },
+      { name: 'SQL', Logo: LogoSQL, level: 'Advanced' },
+      { name: 'C++', Logo: null, level: 'Intermediate', initials: 'C++' },
+      { name: 'Java', Logo: null, level: 'Intermediate', initials: 'Jv' },
+    ]
+  },
+  {
+    id: 'bi', label: 'Data & BI', color: '#F2C811',
+    skills: [
+      { name: 'Power BI', Logo: LogoPowerBI, level: 'Advanced' },
+      { name: 'Excel', Logo: LogoExcel, level: 'Advanced' },
+      { name: 'DAX', Logo: LogoDAX, level: 'Proficient' },
+      { name: 'Data Viz', Logo: null, level: 'Advanced', initials: 'DV' },
+    ]
+  },
+  {
+    id: 'ml', label: 'Machine Learning', color: '#F89939',
+    skills: [
+      { name: 'Scikit-learn', Logo: LogoScikit, level: 'Proficient' },
+      { name: 'Log. Regression', Logo: null, level: 'Advanced', initials: 'LR' },
+      { name: 'Random Forest', Logo: null, level: 'Proficient', initials: 'RF' },
+      { name: 'Feature Eng.', Logo: null, level: 'Proficient', initials: 'FE' },
+    ]
+  },
+  {
+    id: 'libs', label: 'Python Libs', color: '#E70488',
+    skills: [
+      { name: 'Pandas', Logo: LogoPandas, level: 'Advanced' },
+      { name: 'NumPy', Logo: LogoNumpy, level: 'Advanced' },
+      { name: 'Matplotlib', Logo: LogoMatplot, level: 'Proficient' },
+      { name: 'Seaborn', Logo: LogoSeaborn, level: 'Proficient' },
+    ]
+  },
 ]
-const TOOLS=[{L:LogoJupyter,n:'Jupyter',c:'IDE'},{L:LogoGithub,n:'GitHub',c:'Version Control'},{L:LogoPowerBI,n:'Power BI',c:'BI Tool'},{L:LogoExcel,n:'Excel',c:'Spreadsheet'},{L:LogoVSCode,n:'VS Code',c:'Editor'},{L:LogoMySQL,n:'MySQL',c:'Database'},{L:LogoSeaborn,n:'Seaborn',c:'Viz Library'},{L:LogoDAX,n:'DAX',c:'Formula Language'}]
-const CERTS=[{n:'Data Structures & Algorithms',i:'NeoColab',d:'Dec 2024'},{n:'Bits & Bytes of Networking',i:'Coursera (Google)',d:'May 2024'},{n:'Python Industrial Training',i:'Code Sprint',d:'Mar 2024'},{n:'288 Hours on iamneo',i:'iamneo Learning',d:'May 2025'}]
-const COUNTERS=[{v:'15+',l:'Technologies'},{v:'288',l:'Hrs Logged'},{v:'4',l:'Certifications'},{v:'2+',l:'Yrs Learning'}]
 
-function AnimBar({ pct, delay = 0 }) {
-  const ref = useRef(null)
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { setTimeout(() => el.classList.add('animated'), delay); obs.disconnect() }
-    }, { threshold: 0.3 })
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [delay])
-  return <div className="bar-track"><div ref={ref} className="bar-fill" /></div>
-}
+const TOOLS = [
+  { L: LogoJupyter, n: 'Jupyter', c: 'IDE' },
+  { L: LogoGithub, n: 'GitHub', c: 'Version Control' },
+  { L: LogoPowerBI, n: 'Power BI', c: 'BI Tool' },
+  { L: LogoExcel, n: 'Excel', c: 'Spreadsheet' },
+  { L: LogoVSCode, n: 'VS Code', c: 'Editor' },
+  { L: LogoMySQL, n: 'MySQL', c: 'Database' },
+  { L: LogoSeaborn, n: 'Seaborn', c: 'Viz Library' },
+  { L: LogoDAX, n: 'DAX', c: 'Formula Language' },
+]
 
+const CERTS = [
+  { n: 'Data Structures & Algorithms', i: 'NeoColab', d: 'Dec 2024' },
+  { n: 'Bits & Bytes of Networking', i: 'Coursera (Google)', d: 'May 2024' },
+  { n: 'Python Industrial Training', i: 'Code Sprint', d: 'Mar 2024' },
+  { n: '288 Hours on iamneo', i: 'iamneo Learning', d: 'May 2025' },
+]
+
+const ALL_TAGS = [
+  'Python', 'Machine Learning', 'Power BI', 'SQL', 'Data Wrangling',
+  'Pandas', 'NumPy', 'Scikit-learn', 'Matplotlib', 'Seaborn',
+  'DAX', 'Excel', 'Feature Engineering', 'EDA', 'ETL Pipeline',
+  'Logistic Regression', 'Random Forest', 'ROC-AUC', 'F1-Score',
+  'Data Visualization', 'KPI Dashboards', 'Jupyter', 'GitHub',
+  'MySQL', 'Statistical Analysis', 'Predictive Modeling',
+]
+
+/* ── Reveal helper ── */
 function Reveal({ children, className = '', delay = 0, dir = '' }) {
   const ref = useRef(null)
   useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { el.classList.add('visible'); obs.disconnect() }
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' })
-    obs.observe(el)
-    return () => obs.disconnect()
+    const el = ref.current; if (!el) return
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { el.classList.add('visible'); obs.disconnect() } },
+      { threshold: 0.06, rootMargin: '0px 0px -40px 0px' }
+    )
+    obs.observe(el); return () => obs.disconnect()
   }, [])
   const cls = dir === 'left' ? 'reveal-left' : dir === 'right' ? 'reveal-right' : dir === 'scale' ? 'reveal-scale' : 'reveal'
   return <div ref={ref} className={`${cls} ${className}`} style={delay ? { transitionDelay: `${delay}ms` } : {}}>{children}</div>
 }
 
+/* ── Hexagonal Skill Card ── */
+function HexCard({ skill, color, delay }) {
+  const ref = useRef(null)
+  useEffect(() => {
+    const el = ref.current; if (!el) return
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { el.classList.add('visible'); obs.disconnect() } },
+      { threshold: 0.1 }
+    )
+    obs.observe(el); return () => obs.disconnect()
+  }, [])
+  return (
+    <div ref={ref} className="hex-card reveal-scale" style={{ '--card-color': color, transitionDelay: `${delay}ms` }}>
+      <div className="hex-inner">
+        <div className="hex-logo">
+          {skill.Logo
+            ? <skill.Logo />
+            : <span className="hex-initials">{skill.initials}</span>
+          }
+        </div>
+        <div className="hex-name">{skill.name}</div>
+        <div className="hex-level" style={{ color }}>{skill.level}</div>
+      </div>
+      <div className="hex-glow" style={{ background: `radial-gradient(circle at 50% 0%, ${color}18, transparent 70%)` }} />
+    </div>
+  )
+}
+
+/* ── Radial Category Ring ── */
+function RadialRing({ activeId, onSelect }) {
+  const canvasRef = useRef(null)
+  const [hovered, setHovered] = useState(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current; if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    const SIZE = 320
+    canvas.width = SIZE; canvas.height = SIZE
+    const cx = SIZE / 2, cy = SIZE / 2
+    const outerR = 130, innerR = 52
+    const cats = CATEGORIES
+
+    function draw() {
+      ctx.clearRect(0, 0, SIZE, SIZE)
+      const slice = (Math.PI * 2) / cats.length
+
+      // Outer rings
+      ctx.beginPath(); ctx.arc(cx, cy, outerR + 18, 0, Math.PI * 2)
+      ctx.strokeStyle = 'rgba(245,166,35,0.07)'; ctx.lineWidth = 1; ctx.stroke()
+      ctx.beginPath(); ctx.arc(cx, cy, innerR - 10, 0, Math.PI * 2)
+      ctx.strokeStyle = 'rgba(245,166,35,0.1)'; ctx.lineWidth = 1; ctx.stroke()
+
+      cats.forEach((cat, i) => {
+        const startA = i * slice - Math.PI / 2 - slice / 2
+        const endA = startA + slice
+        const midA = startA + slice / 2
+        const isActive = cat.id === activeId
+        const isHov = cat.id === hovered
+
+        // Segment
+        ctx.beginPath()
+        ctx.moveTo(cx, cy)
+        ctx.arc(cx, cy, outerR + (isActive ? 14 : isHov ? 8 : 0), startA + 0.04, endA - 0.04)
+        ctx.closePath()
+        ctx.fillStyle = isActive
+          ? cat.color + '28'
+          : isHov ? cat.color + '14' : 'rgba(255,255,255,0.03)'
+        ctx.fill()
+        ctx.strokeStyle = isActive ? cat.color + 'AA' : cat.color + '44'
+        ctx.lineWidth = isActive ? 1.5 : 0.8
+        ctx.stroke()
+
+        // Label
+        const labelR = outerR + 28
+        const lx = cx + labelR * Math.cos(midA)
+        const ly = cy + labelR * Math.sin(midA)
+        ctx.save()
+        ctx.translate(lx, ly)
+        ctx.fillStyle = isActive ? cat.color : 'rgba(255,255,255,0.5)'
+        ctx.font = `${isActive ? '600' : '400'} 9px "DM Sans", sans-serif`
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'middle'
+        ctx.fillText(cat.label, 0, 0)
+        ctx.restore()
+
+        // Dot on ring
+        const dotR = outerR + 2
+        const dx = cx + dotR * Math.cos(midA)
+        const dy = cy + dotR * Math.sin(midA)
+        ctx.beginPath(); ctx.arc(dx, dy, isActive ? 4 : 2.5, 0, Math.PI * 2)
+        ctx.fillStyle = isActive ? cat.color : cat.color + '70'
+        ctx.fill()
+      })
+
+      // Center
+      const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, innerR - 10)
+      gradient.addColorStop(0, 'rgba(245,166,35,0.12)')
+      gradient.addColorStop(1, 'rgba(245,166,35,0.02)')
+      ctx.beginPath(); ctx.arc(cx, cy, innerR - 10, 0, Math.PI * 2)
+      ctx.fillStyle = gradient; ctx.fill()
+
+      const activeCat = cats.find(c => c.id === activeId)
+      if (activeCat) {
+        ctx.font = '700 11px "DM Mono", monospace'
+        ctx.fillStyle = activeCat.color
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'middle'
+        ctx.fillText(activeCat.label.toUpperCase(), cx, cy)
+      }
+    }
+
+    draw()
+  }, [activeId, hovered])
+
+  function handleClick(e) {
+    const canvas = canvasRef.current
+    const rect = canvas.getBoundingClientRect()
+    const mx = (e.clientX - rect.left) * (320 / rect.width)
+    const my = (e.clientY - rect.top) * (320 / rect.height)
+    const cx = 160, cy = 160
+    const dx = mx - cx, dy = my - cy
+    const dist = Math.sqrt(dx * dx + dy * dy)
+    if (dist < 30 || dist > 150) return
+    let angle = Math.atan2(dy, dx) + Math.PI / 2
+    if (angle < 0) angle += Math.PI * 2
+    const slice = (Math.PI * 2) / CATEGORIES.length
+    const idx = Math.floor(angle / slice)
+    onSelect(CATEGORIES[idx % CATEGORIES.length].id)
+  }
+
+  function handleMouseMove(e) {
+    const canvas = canvasRef.current
+    const rect = canvas.getBoundingClientRect()
+    const mx = (e.clientX - rect.left) * (320 / rect.width)
+    const my = (e.clientY - rect.top) * (320 / rect.height)
+    const cx = 160, cy = 160
+    const dx = mx - cx, dy = my - cy
+    const dist = Math.sqrt(dx * dx + dy * dy)
+    if (dist < 30 || dist > 150) { setHovered(null); return }
+    let angle = Math.atan2(dy, dx) + Math.PI / 2
+    if (angle < 0) angle += Math.PI * 2
+    const slice = (Math.PI * 2) / CATEGORIES.length
+    const idx = Math.floor(angle / slice)
+    setHovered(CATEGORIES[idx % CATEGORIES.length].id)
+  }
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="radial-ring-canvas"
+      style={{ width: 280, height: 280, cursor: 'pointer' }}
+      onClick={handleClick}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => setHovered(null)}
+    />
+  )
+}
+
+/* ── Main Component ── */
 export default function Skills() {
+  const [activeCategory, setActiveCategory] = useState('lang')
+  const activeCat = CATEGORIES.find(c => c.id === activeCategory)
+
   return (
     <main className="page">
+
+      {/* Banner */}
       <div className="banner">
         <div className="banner-ring" />
         <div className="wrap">
           <span className="tag u1">Technical Arsenal</span>
-          <div className="lg u2" style={{marginTop:18}}>Skills &amp; Expertise</div>
-          <p className="banner-sub u3">A full-stack data toolkit — from raw Python to polished Power BI dashboards.</p>
+          <div className="lg u2" style={{ marginTop: 18 }}>Skills &amp; Expertise</div>
+          <p className="banner-sub u3">Explore the technologies and tools I use to turn data into decisions.</p>
         </div>
       </div>
 
-      {/* Counter strip */}
-      <div className="skill-counter-row">
-        {COUNTERS.map((c,i) => (
-          <Reveal key={c.l} className="sc-item" delay={i * 90}>
-            <div className="sc-val">{c.v}</div>
-            <div className="sc-lbl">{c.l}</div>
-          </Reveal>
-        ))}
-      </div>
-
-      {/* Skill bars */}
+      {/* ── RADIAL EXPLORER ── */}
       <section className="sec">
         <div className="wrap">
-          <Reveal><span className="tag">Proficiency</span></Reveal>
-          <Reveal delay={80}><h2 className="md" style={{marginTop:14}}>Technical Skills</h2></Reveal>
-          <div className="skill-groups">
-            {GROUPS.map((g, gi) => (
-              <Reveal key={g.label} delay={gi * 50}>
-                <div className="sg-head">
-                  <div className="icon"><g.Logo /></div>
-                  <span className="name">{g.label}</span>
-                </div>
-                <div className="bars-grid">
-                  {g.skills.map((s, si) => (
-                    <div className="bar-item" key={s.n}>
-                      <div className="bar-hd">
-                        <span className="bar-n">{s.n}</span>
-                        <span className="bar-p">{s.p}%</span>
-                      </div>
-                      <AnimBar pct={s.p} delay={si * 100 + gi * 50} />
-                    </div>
-                  ))}
-                </div>
-              </Reveal>
-            ))}
+          <Reveal><span className="tag">Interactive Explorer</span></Reveal>
+          <Reveal delay={80}><h2 className="md" style={{ marginTop: 14 }}>Skill Categories</h2></Reveal>
+          <Reveal delay={120}>
+            <p style={{ color: 'var(--g4)', fontSize: '.9rem', marginTop: 10 }}>Click a segment to explore skills in that category</p>
+          </Reveal>
+
+          <div className="radial-layout">
+            <Reveal dir="left" delay={160}>
+              <RadialRing activeId={activeCategory} onSelect={setActiveCategory} />
+            </Reveal>
+
+            <div className="radial-skills-panel">
+              {/* Category tabs */}
+              <div className="cat-tabs">
+                {CATEGORIES.map(cat => (
+                  <button
+                    key={cat.id}
+                    className={`cat-tab ${activeCategory === cat.id ? 'active' : ''}`}
+                    style={{ '--tab-color': cat.color }}
+                    onClick={() => setActiveCategory(cat.id)}
+                  >
+                    <span className="cat-dot" style={{ background: cat.color }} />
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Skill hex cards */}
+              <div className="hex-grid">
+                {activeCat?.skills.map((s, i) => (
+                  <HexCard key={s.name} skill={s} color={activeCat.color} delay={i * 70} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       <div className="divider" />
 
-      {/* Tools */}
+      {/* ── TAG CLOUD ── */}
       <section className="sec sec-alt">
         <div className="wrap">
+          <Reveal><span className="tag">Full Skillset</span></Reveal>
+          <Reveal delay={80}><h2 className="md" style={{ marginTop: 14 }}>All Technologies</h2></Reveal>
+          <Reveal delay={120}>
+            <div className="tag-cloud">
+              {ALL_TAGS.map((t, i) => (
+                <span key={t} className="skill-tag" style={{ animationDelay: `${i * 0.06}s` }}>
+                  {t}
+                </span>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <div className="divider" />
+
+      {/* ── TOOLS BENTO ── */}
+      <section className="sec">
+        <div className="wrap">
           <Reveal><span className="tag">Toolbox</span></Reveal>
-          <Reveal delay={80}><h2 className="md" style={{marginTop:14}}>Tools &amp; Platforms</h2></Reveal>
-          <div className="tools-grid">
+          <Reveal delay={80}><h2 className="md" style={{ marginTop: 14 }}>Tools &amp; Platforms</h2></Reveal>
+          <div className="tools-bento">
             {TOOLS.map((t, i) => (
               <Reveal key={t.n} dir="scale" delay={i * 55}>
-                <div className="tool-tile">
-                  <div className="t-logo"><t.L /></div>
-                  <div className="t-name">{t.n}</div>
-                  <div className="t-cat">{t.c}</div>
+                <div className="tool-card">
+                  <div className="tool-logo"><t.L /></div>
+                  <div className="tool-info">
+                    <div className="tool-name">{t.n}</div>
+                    <div className="tool-cat">{t.c}</div>
+                  </div>
+                  <div className="tool-arrow">→</div>
                 </div>
               </Reveal>
             ))}
@@ -130,20 +362,20 @@ export default function Skills() {
 
       <div className="divider" />
 
-      {/* Certs */}
-      <section className="sec">
+      {/* ── CERTS ── */}
+      <section className="sec sec-alt">
         <div className="wrap">
           <Reveal><span className="tag">Credentials</span></Reveal>
-          <Reveal delay={80}><h2 className="md" style={{marginTop:14}}>Certificates</h2></Reveal>
-          <div className="cert-grid">
+          <Reveal delay={80}><h2 className="md" style={{ marginTop: 14 }}>Certificates</h2></Reveal>
+          <div className="cert-timeline">
             {CERTS.map((c, i) => (
               <Reveal key={c.n} dir={i % 2 === 0 ? 'left' : 'right'} delay={i * 80}>
-                <div className="cert-item">
-                  <div className="cert-icon"><AwardIcon /></div>
-                  <div className="cert-info">
+                <div className="cert-tl-item">
+                  <div className="cert-tl-dot" />
+                  <div className="cert-tl-card">
+                    <div className="cert-tl-date">{c.d}</div>
                     <h4>{c.n}</h4>
                     <p>{c.i}</p>
-                    <span className="cert-date">{c.d}</span>
                   </div>
                 </div>
               </Reveal>
@@ -151,6 +383,7 @@ export default function Skills() {
           </div>
         </div>
       </section>
+
     </main>
   )
 }

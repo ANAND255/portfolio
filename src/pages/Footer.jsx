@@ -20,7 +20,7 @@ export default function Footer() {
           </div>
           <div className="f-col">
             <h5>Navigation</h5>
-            {[['/','/Home'],['/about','About'],['/skills','Skills'],['/projects','Projects']].map(([p,l])=>(
+            {[['/Home'],['/about','About'],['/skills','Skills'],['/projects','Projects']].map(([p,l])=>(
               <Link key={p} to={p}>{l.replace('/','')}</Link>
             ))}
           </div>
@@ -28,7 +28,7 @@ export default function Footer() {
             <h5>Connect</h5>
             <Link to="/education">Education</Link>
             <Link to="/contact">Contact</Link>
-            <a href="/Anand_Bijoy_-_Business_analyst.pdf" target="_blank" rel="noreferrer">Download CV</a>
+            <a href="https://drive.google.com/file/d/1E1VdxWylVEJQzOURX9Tx4_jP4na8wVbI/view?usp=drive_link" target="_blank" rel="noreferrer">Download CV</a>
             <a href="mailto:anandbijoy255@gmail.com">Send Email</a>
           </div>
         </div>

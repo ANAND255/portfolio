@@ -72,36 +72,36 @@ export default function Home() {
 
         <div className="hero-content">
           <span className="hc-num">2025</span>
-          <div className="tag u1">Business Analyst</div>
           <div className="hero-name u2">
             <span className="line1">ANAND</span>
             <span className="line2">BIJOY</span>
           </div>
           <div className="hero-divider u3">
-            <span className="role-txt">Data Analytics + ML</span>
+            <span className="role-txt">Data Science and Analytics + ML</span>
             <span className="role-line" />
           </div>
           <p className="hero-desc u4">
             I build <b>end-to-end data pipelines</b>, train ML models, and craft Power BI dashboards that turn raw numbers into boardroom-ready decisions.
           </p>
           <div className="hero-ctas u5">
-            <a href="/Anand_Bijoy_-_Business_analyst.pdf" target="_blank" rel="noreferrer" className="btn btn-cv"><Dl /> View Resume</a>
+            <a href="https://drive.google.com/file/d/1E1VdxWylVEJQzOURX9Tx4_jP4na8wVbI/view?usp=sharing" target="_blank" rel="noreferrer" className="btn btn-cv"><Dl /> View Resume</a>
             <Link to="/projects" className="btn btn-o">My Work <Ar /></Link>
           </div>
           <div className="hero-stats u6">
-            {[['2+','Projects'],['288','Hrs Logged'],['4','Certs'],['7.0','CGPA']].map(([v,l])=>(
+            {[['4+','Projects'],['4','Certs'],['7.3','CGPA']].map(([v,l])=>(
               <div className="hs-item" key={l}><div className="hs-val">{v}</div><div className="hs-lbl">{l}</div></div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* TICKER */}
+          {/* TICKER */}
       <div className="ticker">
         <div className="ticker-track">
           {ticks.map((t,i)=><span className="ticker-item" key={i}><span className="ti-dot" />{t}</span>)}
         </div>
       </div>
+        </div>
+      </section>
+
+      
 
       {/* BENTO ABOUT */}
       <section className="sec">
@@ -114,10 +114,6 @@ export default function Home() {
               <p>B.Tech CSE student at LPU passionate about the full data pipeline — from ingestion and ML modeling to polished Power BI dashboards. I make data speak in ways that drive real decisions.</p>
             </Reveal>
             <div style={{gridColumn:'span 5',display:'grid',gap:12}}>
-              <Reveal className="card card-inv" delay={120}>
-                <div className="card-sub" style={{color:'rgba(8,11,24,.4)'}}>hours logged</div>
-                <div className="card-big-num">288</div>
-              </Reveal>
               <Reveal className="card" delay={180}>
                 <div className="card-sub">LPU CGPA</div>
                 <div className="card-big-num">7.0</div>
@@ -213,7 +209,7 @@ export default function Home() {
           <p>Whether it's a data project, internship, or a conversation about analytics — I'd love to connect.</p>
           <div className="cta-btns">
             <Link to="/contact" className="btn btn-dark">Get In Touch <Ar /></Link>
-            <a href="/Anand_Bijoy_-_Business_analyst.pdf" target="_blank" rel="noreferrer" className="btn btn-dark"><Dl /> Download CV</a>
+            <a href="https://drive.google.com/file/d/1E1VdxWylVEJQzOURX9Tx4_jP4na8wVbI/view?usp=sharing" target="_blank" rel="noreferrer" className="btn btn-dark"><Dl /> Download CV</a>
           </div>
         </div>
       </section>

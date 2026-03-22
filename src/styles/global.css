@@ -8,10 +8,10 @@
   --bg4:   #1E2438;
   --bg5:   #060814;
 
-  --amber:   #F5A623;
-  --amber2:  #D48B0F;
-  --amber3:  #FFB84D;
-  --amber-dim: rgba(245,166,35,0.1);
+  --amber:   #fadcb1;
+  --amber2:  #d6d1c8;
+  --amber3:  #cfcac3;
+  --amber-dim: rgba(245,166,35,0.10);
   --amber-glow: rgba(245,166,35,0.25);
 
   --cyan:    #00CFFF;
@@ -56,14 +56,26 @@ img{max-width:100%;display:block;}
 button{font-family:var(--sans);cursor:pointer;border:none;background:none;}
 input,textarea{font-family:var(--sans);}
 
-/* Grain overlay */
+/* ─── Z-INDEX LAYERS ───────────────────────────────────
+   z:2   DataCanvas canvas (set imperatively in component)
+   z:3   grain overlay (body::after)
+   z:10+ all page UI
+   z:900 navbar
+──────────────────────────────────────────────────── */
 body::after{
   content:'';
   position:fixed;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.035'/%3E%3C/svg%3E");
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.03'/%3E%3C/svg%3E");
   background-size:300px 300px;
-  pointer-events:none;z-index:9999;
+  pointer-events:none;
+  z-index:3;
 }
+/* Every UI element above canvas z:2 */
+nav, .nav         { position:relative; z-index:900 !important; }
+main              { position:relative; z-index:10; }
+footer            { position:relative; z-index:10; }
+#root             { position:relative; z-index:10; }
+.page, .sec, .banner, .hero, .ticker, .cta-band, .wrap { position:relative; z-index:10; }
 
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
@@ -73,7 +85,7 @@ body::after{
 .wrap{max-width:1280px;margin:0 auto;padding:0 56px;}
 .page{padding-top:72px;}
 .sec{padding:120px 0;}
-.sec-alt{background:var(--bg1);}
+.sec-alt{background:rgba(12,15,30,0.85);backdrop-filter:blur(2px);}
 .divider{height:1px;background:linear-gradient(90deg,transparent,var(--l3),var(--la),var(--l3),transparent);}
 
 /* Tag */
@@ -125,6 +137,8 @@ body::after{
   padding:96px 0 80px;
   border-bottom:1px solid var(--l2);
   position:relative;overflow:hidden;
+  background:rgba(8,11,24,0.6);
+  backdrop-filter:blur(8px);
 }
 .banner::before{
   content:'';position:absolute;inset:0;
@@ -146,6 +160,10 @@ body::after{
 }
 .banner .tag{margin-bottom:20px;}
 .banner-sub{font-size:1rem;color:var(--g4);max-width:520px;margin-top:14px;line-height:1.8;}
+
+/* Sections with slight glass effect for readability over canvas */
+.sec { padding: 120px 0; }
+.sec > .wrap, section > .wrap { position: relative; z-index: 2; }
 
 /* Scroll reveal */
 .reveal{opacity:0;transform:translateY(36px);transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1);}
