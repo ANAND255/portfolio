@@ -50,18 +50,20 @@ export default function Home() {
   const ticks=[...TICKER,...TICKER]
   return (
     <main>
-      {/* HERO */}
+      {/* ── HERO ── */}
       <section className="hero">
+
+        {/* LEFT — Photo panel */}
         <div className="hero-photo-panel">
-          <div className="hp-grid" />
           <div className="hp-glow" />
           <div className="hp-corner-ring" />
           <div className="hp-corners"><span /><span /><span /></div>
           <div className="hp-coord">01 / profile</div>
+          {/* Image wrapper — fills panel on all sizes */}
           <div className="hp-img-wrap">
             <img src={Image} alt="Anand Bijoy" className="hp-img" />
           </div>
-          <div className="hp-avail u5">
+          <div className="hp-avail">
             <span className="hp-dot" />
             <div className="hp-avail-text">
               <strong>Open to Work</strong>
@@ -70,40 +72,65 @@ export default function Home() {
           </div>
         </div>
 
+        {/* RIGHT — Content panel */}
         <div className="hero-content">
           <span className="hc-num">2025</span>
+
           <div className="hero-name u2">
             <span className="line1">ANAND</span>
             <span className="line2">BIJOY</span>
           </div>
+
           <div className="hero-divider u3">
             <span className="role-txt">Data Science and Analytics + ML</span>
             <span className="role-line" />
           </div>
+
           <p className="hero-desc u4">
-            I build <b>end-to-end data pipelines</b>, train ML models, and craft Power BI dashboards that turn raw numbers into boardroom-ready decisions.
+            I build <b>end-to-end data pipelines</b>, train ML models, and craft Power BI
+            dashboards that turn raw numbers into boardroom-ready decisions.
           </p>
+
           <div className="hero-ctas u5">
-            <a href="https://drive.google.com/file/d/1E1VdxWylVEJQzOURX9Tx4_jP4na8wVbI/view?usp=sharing" target="_blank" rel="noreferrer" className="btn btn-cv"><Dl /> View Resume</a>
+            <a
+              href="https://drive.google.com/file/d/1E1VdxWylVEJQzOURX9Tx4_jP4na8wVbI/view?usp=sharing"
+              target="_blank" rel="noreferrer"
+              className="btn btn-cv"
+            >
+              <Dl /> View Resume
+            </a>
             <Link to="/projects" className="btn btn-o">My Work <Ar /></Link>
           </div>
-          <div className="hero-stats u6">
-            {[['4+','Projects'],['4','Certs'],['7.3','CGPA']].map(([v,l])=>(
-              <div className="hs-item" key={l}><div className="hs-val">{v}</div><div className="hs-lbl">{l}</div></div>
-            ))}
+
+          {/* Stats + Ticker combined — same width block */}
+          <div className="hero-stats-wrap u6">
+            <div className="hero-stats">
+              {[['4+','Projects'],['4','Certs'],['7.3','CGPA']].map(([v,l])=>(
+                <div className="hs-item" key={l}>
+                  <div className="hs-val">{v}</div>
+                  <div className="hs-lbl">{l}</div>
+                </div>
+              ))}
+            </div>
+            <div className="hero-ticker">
+              <div className="ticker">
+                <div className="ticker-track">
+                  {ticks.map((t,i)=>(
+                    <span className="ticker-item" key={i}>
+                      <span className="ti-dot" />{t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
-          {/* TICKER */}
-      <div className="ticker">
-        <div className="ticker-track">
-          {ticks.map((t,i)=><span className="ticker-item" key={i}><span className="ti-dot" />{t}</span>)}
         </div>
-      </div>
-        </div>
+
       </section>
 
-      
 
-      {/* BENTO ABOUT */}
+
+      {/* ── BENTO ABOUT ── */}
       <section className="sec">
         <div className="wrap">
           <Reveal><span className="tag">About Me</span></Reveal>
@@ -113,25 +140,37 @@ export default function Home() {
               <h3>Turning complex datasets into clear intelligence</h3>
               <p>B.Tech CSE student at LPU passionate about the full data pipeline — from ingestion and ML modeling to polished Power BI dashboards. I make data speak in ways that drive real decisions.</p>
             </Reveal>
+
             <div style={{gridColumn:'span 5',display:'grid',gap:12}}>
               <Reveal className="card" delay={180}>
                 <div className="card-sub">LPU CGPA</div>
                 <div className="card-big-num">7.3</div>
               </Reveal>
             </div>
+
             <Reveal className="card card-c8" delay={100}>
               <div className="card-sub">02 — philosophy</div>
               <h3 style={{fontStyle:'italic'}}>"Data is not just numbers — it's the story behind every decision."</h3>
               <p style={{marginTop:12}}>Analytical Thinking · Problem Solving · Communication · Adaptability</p>
             </Reveal>
-            <Reveal className="card card-c4 card-inv" delay={160} style={{display:'flex',flexDirection:'column',justifyContent:'space-between'}}>
-              <div>
-                <div className="card-sub" style={{color:'rgba(8,11,24,.4)'}}>03 — connect</div>
-                <div className="sm">Let's work together on your next data project.</div>
+
+            <Reveal className="card card-c4 card-inv" delay={160}>
+              <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',height:'100%'}}>
+                <div>
+                  <div className="card-sub" style={{color:'rgba(8,11,24,.4)'}}>03 — connect</div>
+                  <div className="sm">Let's work together on your next data project.</div>
+                </div>
+                <Link
+                  to="/contact"
+                  className="btn btn-dark"
+                  style={{marginTop:22,justifyContent:'center',background:'#080B18',color:'var(--amber)',border:'1.5px solid rgba(8,11,24,.15)'}}
+                >
+                  Get in Touch <Ar />
+                </Link>
               </div>
-              <Link to="/contact" className="btn btn-dark" style={{marginTop:22,justifyContent:'center',background:'#080B18',color:'var(--amber)',border:'1.5px solid rgba(8,11,24,.15)'}}>Get in Touch <Ar /></Link>
             </Reveal>
           </div>
+
           <div style={{textAlign:'right',marginTop:24}}>
             <Link to="/about" className="btn btn-o">Full Story <Ar /></Link>
           </div>
@@ -140,7 +179,7 @@ export default function Home() {
 
       <div className="divider" />
 
-      {/* SKILLS */}
+      {/* ── SKILLS ── */}
       <section className="sec sec-alt">
         <div className="wrap">
           <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-end',marginBottom:48,flexWrap:'wrap',gap:16}}>
@@ -170,7 +209,7 @@ export default function Home() {
 
       <div className="divider" />
 
-      {/* PROJECTS */}
+      {/* ── PROJECTS ── */}
       <section className="sec">
         <div className="wrap">
           <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-end',marginBottom:48,flexWrap:'wrap',gap:16}}>
@@ -202,17 +241,24 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* ── CTA ── */}
       <section className="cta-band">
         <div className="wrap">
           <h2 className="lg">Ready to Collaborate?</h2>
           <p>Whether it's a data project, internship, or a conversation about analytics — I'd love to connect.</p>
           <div className="cta-btns">
             <Link to="/contact" className="btn btn-dark">Get In Touch <Ar /></Link>
-            <a href="https://drive.google.com/file/d/1E1VdxWylVEJQzOURX9Tx4_jP4na8wVbI/view?usp=sharing" target="_blank" rel="noreferrer" className="btn btn-dark"><Dl /> Download CV</a>
+            <a
+              href="https://drive.google.com/file/d/1E1VdxWylVEJQzOURX9Tx4_jP4na8wVbI/view?usp=sharing"
+              target="_blank" rel="noreferrer"
+              className="btn btn-dark"
+            >
+              <Dl /> Download CV
+            </a>
           </div>
         </div>
       </section>
+
     </main>
   )
 }

@@ -2,6 +2,7 @@
 .hero{min-height:calc(100vh - 72px);display:grid;grid-template-columns:44% 56%;}
 
 /* Photo panel */
+.hp-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(245,166,35,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(245,166,35,.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;}
 .hero-photo-panel{position:relative;overflow:hidden;background:var(--bg1);border-right:1px solid var(--l2);display:flex;align-items:flex-end;justify-content:center;}
 .hp-glow{position:absolute;bottom:-80px;left:50%;transform:translateX(-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(245,166,35,.09) 0%,transparent 65%);pointer-events:none;}
 .hp-corner-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:380px;height:380px;border-radius:50%;border:1px solid rgba(245,166,35,.05);pointer-events:none;animation:spinRing 30s linear infinite;}
@@ -36,7 +37,8 @@
 .hero-desc{font-size:1.05rem;line-height:1.9;color:var(--g5);max-width:420px;margin-bottom:44px;}
 .hero-desc b{color:var(--w);font-weight:600;}
 .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:56px;}
-.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);border:1.5px solid var(--l2);border-radius:var(--r3);overflow:hidden;background:var(--bg2);}
+.hero-stats-wrap{border:1.5px solid var(--l2);border-radius:var(--r3);overflow:hidden;background:var(--bg2);}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1.5px solid var(--l2);}
 .hs-item{padding:18px 20px;text-align:center;border-right:1.5px solid var(--l2);transition:background .2s;}
 .hs-item:last-child{border-right:none;}
 .hs-item:hover{background:var(--amber-dim);}
@@ -124,24 +126,25 @@
 
 @media(max-width:900px){
   /* Hero stacks vertically */
-  .hero{grid-template-columns:1fr;min-height:auto;}
+  .hero{grid-template-columns:1fr;min-height:auto;overflow:hidden;display:flex;flex-direction:column;height:calc(100dvh - 72px);}
 
   /* ─── PHOTO PANEL FIX ───
      Give panel an explicit height so the absolutely-positioned
      image-wrap has something to fill.
      position:relative is required for inset:0 to work.        */
-  .hero-photo-panel{
-    height:70vw;
-    max-height:420px;
-    min-height:260px;
-    position:relative;          /* MUST be relative for abs child */
+  .hp-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(245,166,35,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(245,166,35,.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;}
+.hero-photo-panel{
+    flex:1;
+    min-height:0;
+    position:relative;
     overflow:hidden;
     border-right:none;
     border-bottom:1px solid var(--l2);
-    display:block;              /* override flex so abs child fills */
+    display:block;
   }
   /* Image wrapper fills the whole panel */
   .hp-img-wrap{
+    position:absolute;
     inset:0;
     padding:0;
     display:block;
@@ -165,13 +168,15 @@
   .hp-glow{display:none;}
 
   /* Content section */
-  .hero-content{padding:40px 24px 52px;}
+  .hero-content{padding:28px 24px 0;overflow:hidden;min-width:0;width:100%;box-sizing:border-box;flex-shrink:0;}
+  .hero-name{overflow:hidden;}
+  .line1,.line2{word-break:break-word;overflow-wrap:break-word;display:block;font-size:clamp(2.8rem,13vw,4.5rem);}
+  .hero-desc{word-break:normal;overflow-wrap:break-word;}
   .hero-content::before{display:none;}
   .hc-num{display:none;}
   .hero-stats{display:none;}
-  .hero-desc{max-width:100%;margin-bottom:32px;}
-  /* Keep spacing below CTA buttons so ticker doesn't butt up */
-  .hero-ctas{margin-bottom:32px;}
+  .hero-desc{max-width:100%;margin-bottom:18px;font-size:.95rem;}
+  .hero-ctas{margin-bottom:18px;}
 
   /* Bento */
   .bento .card-c7,.bento .card-c5,.bento .card-c4,.bento .card-c8{grid-column:span 6;}
@@ -183,7 +188,8 @@
 }
 
 @media(max-width:640px){
-  .hero-photo-panel{height:72vw;max-height:360px;}
+  .hp-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(245,166,35,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(245,166,35,.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;}
+.hero-photo-panel{flex:1;min-height:0;}
   /* Full-width bento */
   .bento .card-c7,.bento .card-c5,.bento .card-c4,.bento .card-c8{grid-column:span 12;}
   .ticker-item{padding:0 18px;font-size:.68rem;}
@@ -194,9 +200,10 @@
 }
 
 @media(max-width:480px){
-  .hero-photo-panel{height:80vw;max-height:320px;}
+  .hp-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(245,166,35,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(245,166,35,.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;}
+.hero-photo-panel{flex:1;min-height:0;}
   .line1,.line2{font-size:clamp(3rem,15vw,5rem);}
-  .hero-divider{margin:16px 0;}
+  .hero-divider{margin:10px 0;}
   .hero-desc{font-size:.95rem;margin-bottom:28px;}
   .hero-ctas{flex-direction:column;margin-bottom:28px;}
   .hero-ctas .btn{width:100%;justify-content:center;}
@@ -204,4 +211,26 @@
   .sk-tile{padding:20px 12px;}
   .card{padding:22px 18px;}
   .card-big-num{font-size:3rem;}
+}
+/* ══ REVEAL ANIMATIONS ══ */
+.reveal,.reveal-left,.reveal-right,.reveal-scale{opacity:0;transition:opacity .65s cubic-bezier(.4,0,.2,1),transform .65s cubic-bezier(.4,0,.2,1);}
+.reveal{transform:translateY(28px);}
+.reveal-left{transform:translateX(-28px);}
+.reveal-right{transform:translateX(28px);}
+.reveal-scale{transform:scale(.94);}
+.reveal.visible,.reveal-left.visible,.reveal-right.visible,.reveal-scale.visible{opacity:1;transform:none;}
+
+@keyframes blink{0%,100%{box-shadow:0 0 10px rgba(245,166,35,.9);}50%{box-shadow:0 0 3px rgba(245,166,35,.2);}}
+
+/* ══ HERO TICKER WRAPPER ══
+   Sits flush below stats — same width, rounded bottom  */
+.hero-ticker { overflow: hidden; }
+.hero-ticker .ticker { height: 48px; }
+
+@media(max-width:900px){
+  .hero-stats-wrap{border:none;border-radius:0;margin:0 -24px;margin-top:24px;}
+  .hero-ticker .ticker{height:48px;}
+}
+@media(max-width:480px){
+  .hero-stats-wrap{margin:0 -18px;margin-top:20px;}
 }
