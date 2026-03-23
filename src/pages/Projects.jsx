@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import '../styles/Projects.css'
 
 /* ── Icons ── */
@@ -20,6 +20,22 @@ const ImgIcon = () => (
     <polyline points="21 15 16 10 5 21"/>
   </svg>
 )
+
+/* ── Reveal on scroll (same as Skills page) ── */
+function Reveal({ children, className = '', delay = 0, dir = '' }) {
+  const ref = useRef(null)
+  useEffect(() => {
+    const el = ref.current; if (!el) return
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { el.classList.add('visible'); obs.disconnect() } },
+      { threshold: 0.06, rootMargin: '0px 0px -40px 0px' }
+    )
+    obs.observe(el); return () => obs.disconnect()
+  }, [])
+  const cls = dir === 'left' ? 'reveal-left' : dir === 'right' ? 'reveal-right' : dir === 'scale' ? 'reveal-scale' : 'reveal'
+  return <div ref={ref} className={`${cls} ${className}`} style={delay ? { transitionDelay: `${delay}ms` } : {}}>{children}</div>
+}
+
 
 /* ────────────────────────────────────────────
    PROJECT DATA
@@ -170,19 +186,19 @@ export default function Projects() {
     <main className="page">
       <div className="banner">
         <div className="wrap">
-          <span className="tag">My Work</span>
-          <div className="lg" style={{ marginTop: 18 }}>Projects</div>
-          <p className="banner-sub">Real-world data problems solved with end-to-end pipelines, ML models and Power BI dashboards.</p>
+          <span className="tag u1">My Work</span>
+          <div className="lg u2" style={{ marginTop: 18 }}>Projects</div>
+          <p className="banner-sub u3">Real-world data problems solved with end-to-end pipelines, ML models and Power BI dashboards.</p>
         </div>
       </div>
 
       <section className="sec">
         <div className="wrap">
-          <span className="tag">Portfolio</span>
-          <h2 className="md" style={{ marginTop: 14 }}>Featured Projects</h2>
+          <Reveal><span className="tag">Portfolio</span></Reveal>
+          <Reveal delay={80}><h2 className="md" style={{ marginTop: 14 }}>Featured Projects</h2></Reveal>
 
           {/* Filter */}
-          <div className="filter-row">
+          <Reveal delay={120}><div className="filter-row">
             {FILTERS.map(f => (
               <button
                 key={f}
@@ -192,12 +208,13 @@ export default function Projects() {
                 {f}
               </button>
             ))}
-          </div>
+          </div></Reveal>
 
           {/* Project items with carousel */}
           <div className="proj-cards-v2">
             {list.map((p, i) => (
-              <div className={`proj-item ${i % 2 === 1 ? 'rev' : ''}`} key={p.title}>
+              <Reveal key={p.title} dir={i % 2 === 0 ? 'left' : 'right'} delay={i * 120}>
+              <div className={`proj-item ${i % 2 === 1 ? 'rev' : ''}`}>
 
                 {/* LEFT — Carousel + tech stack below */}
                 <div className="pc2-left-col">
@@ -239,6 +256,7 @@ export default function Projects() {
                 </div>
 
               </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -249,9 +267,9 @@ export default function Projects() {
       {/* TRAINING */}
       <section className="sec sec-alt">
         <div className="wrap">
-          <span className="tag">Training</span>
-          <h2 className="md" style={{ marginTop: 14 }}>Hands-On Training</h2>
-          <div className="training-block" style={{ marginTop: 40 }}>
+          <Reveal><span className="tag">Training</span></Reveal>
+          <Reveal delay={80}><h2 className="md" style={{ marginTop: 14 }}>Hands-On Training</h2></Reveal>
+          <Reveal delay={140}><div className="training-block" style={{ marginTop: 40 }}>
             <div className="training-bg-text">TRAINING</div>
             <div className="training-inner">
               <div className="training-left">
@@ -275,7 +293,7 @@ export default function Projects() {
                 </div>
               </div>
             </div>
-          </div>
+          </div></Reveal>
         </div>
       </section>
     </main>

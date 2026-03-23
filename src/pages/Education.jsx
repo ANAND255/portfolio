@@ -32,7 +32,6 @@ const EDU = [
   { num:'03', deg:'Matriculation (Class X)', sch:'Veda Vyasa Vidyalayam', loc:'Kozhikode, Kerala', period:'Jun 2019 – Mar 2020', score:'81%', scoreLabel:'Score', status:'done' },
 ]
 
-const SOFT = ['Analytical Thinking','Problem Solving','Adaptability','Communication','Time Management','Collaboration','Critical Thinking','Attention to Detail']
 
 export default function Education() {
   return (
@@ -75,7 +74,7 @@ export default function Education() {
 
       <div className="divider" />
 
-      {/* Certifications teaser — links to /certifications */}
+      {/* Certifications teaser — links to /certifications
       <section className="sec sec-alt">
         <div className="wrap">
           <Reveal>
@@ -111,25 +110,11 @@ export default function Education() {
             </div>
           </Reveal>
         </div>
-      </section>
+      </section> */}
 
       <div className="divider" />
 
-      {/* Soft Skills */}
-      <section className="sec">
-        <div className="wrap">
-          <Reveal><span className="tag">Soft Skills</span></Reveal>
-          <Reveal delay={80}><h2 className="md" style={{marginTop:14}}>Beyond Code</h2></Reveal>
-          <Reveal delay={120}><p className="body" style={{marginTop:14,maxWidth:520}}>Technical skills get you in the room. These are what keep you there.</p></Reveal>
-          <div className="skill-track">
-            {SOFT.map((s, i) => (
-              <Reveal key={s} delay={i * 55}>
-                <div className="soft-chip">{s}</div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      
     </main>
   )
 }

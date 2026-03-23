@@ -36,12 +36,7 @@
 .cert-card .cert-issuer{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--g4);}
 .cert-card .cert-date{font-family:var(--mono);font-size:.57rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-top:12px;padding-top:12px;border-top:1px solid var(--l2);}
 
-/* SOFT SKILLS */
-.skill-track{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px;}
-.soft-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--bg2);border:1.5px solid var(--l2);border-radius:100px;font-size:.88rem;font-weight:600;color:var(--g6);transition:all .22s;cursor:default;}
-.soft-chip::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0;transition:background .2s;}
-.soft-chip:hover{background:var(--amber);color:#080B18;border-color:var(--amber);transform:translateY(-2px);box-shadow:var(--sh-amber);}
-.soft-chip:hover::before{background:#080B18;}
+
 
 @media(max-width:1024px){
   .cert-bento{grid-template-columns:1fr;}

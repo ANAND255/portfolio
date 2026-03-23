@@ -37,6 +37,13 @@
 .skill-tag:nth-child(3n+1){font-size:.92rem;}
 .skill-tag:nth-child(5n+2){font-size:.78rem;}
 
+/* SOFT SKILLS */
+.skill-track{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px;}
+.soft-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--bg2);border:1.5px solid var(--l2);border-radius:100px;font-size:.88rem;font-weight:600;color:var(--g6);transition:all .22s;cursor:default;}
+.soft-chip::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0;transition:background .2s;}
+.soft-chip:hover{background:var(--amber);color:#080B18;border-color:var(--amber);transform:translateY(-2px);box-shadow:var(--sh-amber);}
+.soft-chip:hover::before{background:#080B18;}
+
 /* TOOLS BENTO */
 .tools-bento{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:52px;}
 .tool-card{display:flex;align-items:center;gap:14px;padding:18px 20px;background:var(--bg2);border:1.5px solid var(--l2);border-radius:var(--r2);transition:all .25s;cursor:default;position:relative;overflow:hidden;}

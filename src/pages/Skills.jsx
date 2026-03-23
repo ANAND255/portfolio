@@ -58,6 +58,9 @@ const CATEGORIES = [
   },
 ]
 
+  const SOFT = ['Analytical Thinking','Problem Solving','Adaptability','Communication','Time Management','Collaboration','Critical Thinking','Attention to Detail']
+
+
 const TOOLS = [
   { L: LogoJupyter, n: 'Jupyter', c: 'IDE' },
   { L: LogoGithub, n: 'GitHub', c: 'Version Control' },
@@ -362,8 +365,24 @@ export default function Skills() {
 
       <div className="divider" />
 
+      {/* Soft Skills */}
+      <section className="sec">
+        <div className="wrap">
+          <Reveal><span className="tag">Soft Skills</span></Reveal>
+          <Reveal delay={80}><h2 className="md" style={{marginTop:14}}>Beyond Code</h2></Reveal>
+          <Reveal delay={120}><p className="body" style={{marginTop:14,maxWidth:520}}>Technical skills get you in the room. These are what keep you there.</p></Reveal>
+          <div className="skill-track">
+            {SOFT.map((s, i) => (
+              <Reveal key={s} delay={i * 55}>
+                <div className="soft-chip">{s}</div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── CERTS ── */}
-      <section className="sec sec-alt">
+      {/* <section className="sec sec-alt">
         <div className="wrap">
           <Reveal><span className="tag">Credentials</span></Reveal>
           <Reveal delay={80}><h2 className="md" style={{ marginTop: 14 }}>Certificates</h2></Reveal>
@@ -382,7 +401,7 @@ export default function Skills() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
     </main>
   )
