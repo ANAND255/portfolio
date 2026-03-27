@@ -56,7 +56,7 @@ const PROJECTS = [
       'User-defined watchlists via customisable Python script. Full documentation and version control on GitHub.',
     ],
     tags: ['Python', 'yfinance', 'Pandas', 'Power BI', 'DAX', 'GitHub'],
-    gh: 'https://github.com/ANAND255',
+    gh: 'https://github.com/ANAND255/Real-Time-Stock-Tracker',
     period: 'Sep 2025',
     /* ↓ Add your image paths here */
     images: [
@@ -77,7 +77,7 @@ const PROJECTS = [
       'Power BI dashboard showing risk distribution, feature importance, patient profiles for data-driven clinical decision support.',
     ],
     tags: ['Python', 'Scikit-learn', 'NumPy', 'Pandas', 'Jupyter', 'Power BI', 'Excel'],
-    gh: 'https://github.com/ANAND255',
+    gh: 'https://github.com/ANAND255/Heart-Disease-Detection',
     period: 'Jul 2025',
     /* ↓ Add your image paths here */
     images: [
@@ -86,6 +86,28 @@ const PROJECTS = [
       /* '/projects/heart-2.png', */
     ],
     imgLabel: 'ML Model',
+  },
+  {
+    n: '01',
+    badge: 'Dashboard',
+    title: ' Road Accident Analysis Dashboard',
+    desc: 'End-to-end data analysis and visualization project uncovering accident trends, severity patterns, and key risk factors across India using Power BI.',
+    hi: [
+      'Built an interactive Power BI dashboard to analyze road accident trends, severity, and fatalities across India.',
+      'Performed in-depth analysis of risk factors including alcohol involvement, time of day, road conditions, and vehicle types.',
+      'Implemented DAX measures and dynamic visualizations to deliver actionable insights for road safety awareness and decision-making.',
+    ],
+    tags: ['Power BI', 'Excel'],
+    gh: 'https://github.com/ANAND255/Road-accident-analysis-Powerbi',
+    period: 'Sep 2025',
+    /* ↓ Add your image paths here */
+    images: [
+       '/projects/road1.jpeg',
+       '/projects/road2.jpeg', 
+      /* '/projects/stock-2.png', */
+      /* '/projects/stock-3.png', */
+    ],
+    imgLabel: 'Road accident ananlysis Dashboard',
   },
 ]
 
