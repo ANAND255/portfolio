@@ -150,19 +150,16 @@ function Carousel({ images, label }) {
 
   return (
     <div className="pc2-carousel">
-      <div className="pc2-slides" style={{ position: 'relative' }}>
-        {/* badge */}
+      {/* ✅ Fixed-height wrapper so absolute children have a parent to fill */}
+      <div className="pc2-slides" style={{ position: 'relative', overflow: 'hidden', aspectRatio: '16/9' }}>
         <div className="pc2-badge">{label}</div>
 
         {images.map((src, i) => (
           <div
             key={i}
             style={{
-              position: i === idx ? 'relative' : 'absolute',
-              inset: i === idx ? 'auto' : 0,
-              top: i === idx ? 'auto' : 0,
-              left: i === idx ? 'auto' : 0,
-              width: '100%',
+              position: 'absolute',   // ✅ ALL slides absolutely positioned
+              inset: 0,
               opacity: i === idx ? 1 : 0,
               transition: 'opacity .4s ease, transform .4s ease',
               transform: i === idx ? 'translateX(0)' : i < idx ? 'translateX(-24px)' : 'translateX(24px)',
@@ -173,7 +170,7 @@ function Carousel({ images, label }) {
             <img
               src={src}
               alt={`${label} screenshot ${i + 1}`}
-              style={{ width: '100%', height: 'auto', display: 'block' }}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
             />
           </div>
         ))}
@@ -198,7 +195,6 @@ function Carousel({ images, label }) {
     </div>
   )
 }
-
 /* ── Main Component ── */
 export default function Projects() {
   const [active, setActive] = useState('All')
